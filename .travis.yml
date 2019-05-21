@@ -6,6 +6,6 @@ sudo: required
 dist: xenial
 dotnet: 2.2
 script:
-  - dotnet restore ClimaMundi/ClimaMundi.sln
-  - dotnet build ClimaMundi/ClimaMundi.sln
-  - dotnet test ClimaMundi/ClimaMundi.sln --no-build -c Release
+  - dotnet restore ./ClimaMundi/ClimaMundi.sln
+  - dotnet build ./ClimaMundi/
+  - dotnet test ./ClimaMundi/ClimaMundi.Test/
