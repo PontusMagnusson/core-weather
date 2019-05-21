@@ -2,7 +2,7 @@ version: '3'
 services:
   climamundi-api:
     build: 
-      context: ./ClimaMundi/ClimaMundi.Api/
+      context: ./ClimaMundi
       dockerfile: Dockerfile
     ports:
       - 5000:5000

@@ -4,10 +4,10 @@ EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS builder
 WORKDIR /app
-
 # Cache restore result
-COPY *.csproj .
-RUN dotnet restore
+COPY *.sln .
+COPY **/*.csproj ./
+RUN dotnet restore *.sln
 
 # Copy code
 COPY . .
