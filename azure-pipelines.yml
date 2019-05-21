@@ -12,7 +12,8 @@ trigger:
 pr:
   branches:
     include:
-    - feature/*
+    - master
+    - develop
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -21,7 +22,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: | 
+- script: |
     docker-compose up -d
     docker-compose down
   displayName: 'dotnet docker build $(buildConfiguration)'
