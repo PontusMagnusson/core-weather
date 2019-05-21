@@ -23,6 +23,6 @@ variables:
 
 steps:
 - script: |
-    docker-compose up -d
+    docker-compose up -d --force-recreate --build
     docker-compose down
   displayName: 'dotnet docker build $(buildConfiguration)'
