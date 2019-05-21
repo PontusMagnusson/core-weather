@@ -41,6 +41,7 @@ namespace ClimaMundi.Api
                 app.UseHsts();
             }
 
+            // Leave this disabled for now
             //app.UseHttpsRedirection();
             app.UseMvc();
         }
