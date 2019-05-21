@@ -32,6 +32,8 @@ To run the project in development mode, run the following line
 docker-compose -f docker-compose-dev.yml up --force-recreate --build
 ```
 
+You will need to run this every time you make changes to the .NET components of the project. If you are making changes to the React project it will rebuild them automatically, so you do **not** have to restart the containers.
+
 This will force Docker to rebuild the container so that all changes register.
 
 Optionally you can add the `-d` flag to the command, which will run the project detached (no output in terminal). To stop it when running in detached mode, run:
