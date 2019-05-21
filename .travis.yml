@@ -1,0 +1,11 @@
+language: csharp
+solution: ./ClimaMundi/ClimaMundi.sln
+mono: none
+sudo: required
+# xenial required for core 2.2
+dist: xenial
+dotnet: 2.2
+script:
+  - dotnet restore ./ClimaMundi/ClimaMundi.sln
+  - dotnet build ./ClimaMundi/
+  - dotnet test ./ClimaMundi/ClimaMundi.Test/
