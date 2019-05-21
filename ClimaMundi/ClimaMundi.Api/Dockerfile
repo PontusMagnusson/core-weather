@@ -13,7 +13,7 @@ RUN dotnet restore
 COPY . .
 WORKDIR /app/
 RUN dotnet publish -c Release -o out
-RUN dotnet test --no-build -c Release
+RUN dotnet test --no-build -c Release -v normal
 
 # Copy built code
 FROM base AS runtime
