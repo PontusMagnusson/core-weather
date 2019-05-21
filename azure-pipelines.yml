@@ -19,5 +19,5 @@ variables:
 steps:
 - script: | 
     docker-compose up
-    docker compose down
+    docker-compose down
   displayName: 'dotnet docker build $(buildConfiguration)'
