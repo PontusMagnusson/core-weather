@@ -2,9 +2,9 @@ version: '3'
 services:
   climamundi-api:
     build: 
-      context: ./ClimaMundi/ClimaMundi.Api/
+      context: ./ClimaMundi
       dockerfile: Dockerfile-dev
     ports:
       - 5000:5000
-    env_file:
-      - ClimaMundi/ClimaMundi.Api/.env
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
