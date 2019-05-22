@@ -2,6 +2,10 @@
 
 This is a small weather application built with .NET Core 2.2 as a final project at IT-Högskolan in Gothenburg.
 
+| Master | Develop |
+| ----- | ----- |
+| [![Build Status](https://dev.azure.com/pontusmagnusson/pontusmagnusson/_apis/build/status/PontusMagnusson.core-weather?branchName=master)](https://dev.azure.com/pontusmagnusson/pontusmagnusson/_build/latest?definitionId=1&branchName=master) | [![Build Status](https://dev.azure.com/pontusmagnusson/pontusmagnusson/_apis/build/status/PontusMagnusson.core-weather?branchName=develop)](https://dev.azure.com/pontusmagnusson/pontusmagnusson/_build/latest?definitionId=1&branchName=develop)
+
 ## Purpose
 
 This app was built to showcase my ability to write clean applications, using technologies I've learned over the past two years. I've limited the projects scope to ease documentation and evaluation. 
