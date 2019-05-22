@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClimaMundi.Api", "ClimaMundi.Api\ClimaMundi.Api.csproj", "{9A1A8E80-F9D2-40F6-BE43-FA261E48E156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimaMundi.Test", "ClimaMundi.Test\ClimaMundi.Test.csproj", "{1115FF90-5CBF-4D83-81DD-E88262E08CAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClimaMundi.Api.Test", "ClimaMundi.Test\ClimaMundi.Api.Test.csproj", "{1115FF90-5CBF-4D83-81DD-E88262E08CAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimaMundi.Core", "ClimaMundi.Core\ClimaMundi.Core.csproj", "{4CA9FA81-F489-486B-A922-050097109A6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClimaMundi.Core", "ClimaMundi.Core\ClimaMundi.Core.csproj", "{4CA9FA81-F489-486B-A922-050097109A6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
