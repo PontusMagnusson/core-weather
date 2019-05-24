@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import TextSearch from './atoms/TextSearch';
-import CurrentWeather from './molecules/CurrentWeather'
+import Weather from './templates/Weather'
 
-function App() {
+
+export default function App() {
   return (
     <div className="App">
-    <CurrentWeather/>
-    <TextSearch placeholder="Write here!"/>
+      <Weather/>
     </div>
   );
 }
-
-export default App;

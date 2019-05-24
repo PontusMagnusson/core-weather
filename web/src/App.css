@@ -23,6 +23,22 @@
   color: #61dafb;
 }
 
+.current-weather-flex-grid {
+  display: flex;
+  flex-direction: row;
+}
+
+.current-weather-flex-column-left {
+  flex: 1 0 auto;
+}
+
+.current-weather-flex-column-right {
+  display:flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  justify-content: space-around;
+}
+
 .slow-spin {
   animation: Slow-spin infinite 10s ease-in-out;
 }
