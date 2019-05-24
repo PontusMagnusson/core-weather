@@ -4,8 +4,16 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
-- develop
+  branches:
+    include:
+    - master
+    - develop
+
+pr:
+  branches:
+    include:
+    - master
+    - develop
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -14,7 +22,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: | 
-    docker-compose up
-    docker compose down
+- script: |
+    docker-compose up -d --force-recreate --build
+    docker-compose down
   displayName: 'dotnet docker build $(buildConfiguration)'
