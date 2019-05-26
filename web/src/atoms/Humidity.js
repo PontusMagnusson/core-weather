@@ -11,7 +11,7 @@ export default class Humidity extends Component {
         return (
             <div id="current-humidity" className="flex-column-item">
                 <FontAwesomeIcon icon={faHumidity} />
-                Moist placeholder
+                {this.props.value}%
             </div>
         )
     }

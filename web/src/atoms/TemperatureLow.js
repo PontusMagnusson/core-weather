@@ -11,7 +11,7 @@ export default class TemperatureLow extends Component {
         return (
             <div id="daily-temperature-low" className="flex-column-item">
                 <FontAwesomeIcon icon={faTemperatureLow} />
-                Cold
+                {`${this.props.value}°${this.props.unit}`}
             </div>
         )
     }

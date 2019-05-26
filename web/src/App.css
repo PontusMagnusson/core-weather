@@ -26,6 +26,7 @@
 .current-weather-flex-grid {
   display: flex;
   flex-direction: row;
+  min-width: 20vw
 }
 
 .current-weather-flex-column-left {
@@ -33,10 +34,22 @@
 }
 
 .current-weather-flex-column-right {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  flex: 1 0 auto;
-  justify-content: space-around;
+  flex: 2 0 auto;
+  justify-content: space-evenly;
+  align-items: flex-end
+}
+
+.flex-column-item {
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flex-column-item > svg {
+  margin-right: 10px;
 }
 
 .slow-spin {

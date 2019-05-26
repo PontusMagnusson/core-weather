@@ -3,6 +3,7 @@ WORKDIR /app
 COPY ./package.json ./
 COPY ./.npmrc ./
 RUN npm install --silent
+RUN rm ./.npmrc
 COPY ./ ./
 
 ENTRYPOINT npm start

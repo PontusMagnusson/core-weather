@@ -7,7 +7,7 @@ export default class CurrentTemperature extends Component {
 
     render() {
         return (
-            <p>{`${this.props.temperature}°${this.props.unit}`}</p>
+            <h2>{`${this.props.temperature}°${this.props.unit}`}</h2>
         )
     }
 }

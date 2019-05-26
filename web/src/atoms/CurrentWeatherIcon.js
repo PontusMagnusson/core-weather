@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faSun, faCloud, faCloudRain, faCloudSun, faWind, faFog, faMeteor, faCloudMeatball, faCloudShowers} from '@fortawesome/pro-light-svg-icons'
+import {faSun, faCloud, faCloudSun, faWind, faFog, faMeteor, faCloudShowers} from '@fortawesome/pro-light-svg-icons'
 
 export default class CurrentWeatherIcon extends Component {
     constructor(props){
@@ -46,7 +46,7 @@ export default class CurrentWeatherIcon extends Component {
                 break;
             default:
                     this.state = {
-                        statusIcon: faCloudMeatball,
+                        statusIcon: faMeteor,
                         canRotate: false
                     }
                 break;

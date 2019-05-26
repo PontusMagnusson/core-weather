@@ -13,6 +13,8 @@ export default class CurrentWeather extends Component {
         this.state = {
             temperature: '19',
             temperatureUnit: 'C',
+            dailyHigh: '22',
+            dailyLow: '10',
             humidity: '60',
             precipProbability: '50',
             icon: 'clear-day'
@@ -29,9 +31,9 @@ export default class CurrentWeather extends Component {
                     </div>
                     <div className="current-weather-flex-column-right">
                         {/* In here we can have humidity, wind speed, daily high & low etc. */}
-                        <TemperatureHigh/>
-                        <TemperatureLow/>
-                        <Humidity/>
+                        <TemperatureHigh value={this.state.dailyHigh} unit={this.state.temperatureUnit}/>
+                        <TemperatureLow value={this.state.dailyLow} unit={this.state.temperatureUnit}/>
+                        <Humidity value={this.state.humidity} unit={this.state.temperatureUnit}/>
                     </div>
                 </div>
                 <h2>Gothenburg, Sweden</h2>
