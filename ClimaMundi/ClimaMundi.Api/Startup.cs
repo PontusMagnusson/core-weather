@@ -23,9 +23,24 @@ namespace ClimaMundi.Api
 
         public IConfiguration Configuration { get; }
 
+        // CORS policy names
+        private readonly string AllowAnyCorsPolicy = "_allowAnyCorsPolicy";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add CORS policies
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowAnyCorsPolicy,
+                    builder =>
+                    {
+                        builder.AllowAnyHeader()
+                               .AllowAnyMethod()
+                               .AllowAnyOrigin();
+                    });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Add swagger
@@ -55,6 +70,9 @@ namespace ClimaMundi.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ClimaMundi V1");
                 c.RoutePrefix = string.Empty;
             });
+
+            // Enable CORS
+            app.UseCors(AllowAnyCorsPolicy);
 
             // Leave this disabled for now
             //app.UseHttpsRedirection();
