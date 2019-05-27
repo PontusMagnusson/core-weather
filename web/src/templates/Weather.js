@@ -5,6 +5,19 @@ import CurrentWeather from '../organisms/CurrentWeather'
 export default class Weather extends Component {
     constructor(props) {
         super(props)
+
+        // Set mock data
+        this.state = {
+            data: {
+                temperature: 20,
+                temperatureUnit: 'C',
+                dailyHigh: 25, 
+                dailyLow: 15, 
+                humidity: 60, 
+                precipProbability: 13, 
+                icon: 'clear-day'
+            }
+        }
     }
 
     componentWillMount(){
@@ -35,7 +48,7 @@ export default class Weather extends Component {
     render(){
         return (
             <div>
-                <CurrentWeather/>
+                <CurrentWeather data={this.state.data}/>
                 <Forecast/>
             </div>
         )

@@ -3,13 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTemperatureLow } from '@fortawesome/pro-light-svg-icons'
 
 export default class TemperatureLow extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     render(){
         return (
-            <div id="daily-temperature-low" className="flex-column-item">
+            <div id="daily-temperature-low" className="flex-column-item" title="Daily low">
                 <FontAwesomeIcon icon={faTemperatureLow} />
                 {`${this.props.value}°${this.props.unit}`}
             </div>

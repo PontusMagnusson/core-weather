@@ -4,20 +4,17 @@ import CurrentTemperature from '../atoms/CurrentTemperature'
 import TemperatureHigh from '../atoms/TemperatureHigh'
 import TemperatureLow from '../atoms/TemperatureLow'
 import Humidity from '../atoms/Humidity'
+import CurrentWeatherSummary from '../atoms/CurrentWeatherSummary';
 
 export default class CurrentWeather extends Component {
     constructor(props) {
         super(props)
 
+        let { temperature, temperatureUnit, dailyHigh, dailyLow, humidity, precipProbability, icon } = this.props.data;
+
         // Some mock data, probably don't need to set state here later?
         this.state = {
-            temperature: '19',
-            temperatureUnit: 'C',
-            dailyHigh: '22',
-            dailyLow: '10',
-            humidity: '60',
-            precipProbability: '50',
-            icon: 'clear-day'
+            temperature, temperatureUnit, dailyHigh, dailyLow, humidity, precipProbability, icon
         }
     }
 
@@ -36,7 +33,7 @@ export default class CurrentWeather extends Component {
                         <Humidity value={this.state.humidity} unit={this.state.temperatureUnit}/>
                     </div>
                 </div>
-                <h2>Gothenburg, Sweden</h2>
+                <CurrentWeatherSummary/>
             </header>
         )
     }
