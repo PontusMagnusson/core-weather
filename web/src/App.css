@@ -57,6 +57,11 @@
   animation: Slow-spin infinite 10s ease-in-out;
 }
 
+.levitate {
+  position: relative;
+  animation: Levitate infinite 3s ease-in-out;
+}
+
 input {
   border: 1px solid #ccc;
   padding: 8px;
@@ -71,6 +76,18 @@ input {
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+@keyframes Levitate {
+  0% {
+    top: -20px;
+  }
+  50%{
+    top: 20px;
+  }
+  100%{
+    top: -20px;
   }
 }
 
