@@ -6,7 +6,14 @@ export default class Forecast extends Component {
     render(){
         return (
             <div>
-                <TextSearch placeholder="Write here!"/>
+                <table>
+                    <tr>
+                        <th>Table with stuff</th>
+                    </tr>
+                    <tr>
+                        <td>Cell here</td>
+                    </tr>
+                </table>
             </div>
         )
     }

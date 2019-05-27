@@ -7,37 +7,37 @@ export default class CurrentWeatherIcon extends Component {
         super(props)
         
         switch(this.props.status){
-            case "partly-cloudy-day":
+            case "PartlyCloudyDay":
                     this.state = {
                         statusIcon: faCloudSun,
                         canRotate: false
                     }
                 break;
-            case "cloudy":
+            case "Cloudy":
                     this.state = {
                         statusIcon: faCloud,
                         canRotate: false
                     }
                 break;
-            case "clear-day":
+            case "ClearDay":
                     this.state = {
                         statusIcon: faSun,
                         canRotate: true
                     }
                 break;
-            case "rain":
+            case "Rain":
                     this.state = {
                         statusIcon: faCloudShowers,
                         canRotate: false
                     }
                 break;
-            case "wind":
+            case "Wind":
                     this.state = {
                         statusIcon: faWind,
                         canRotate: false
                     }
                 break;
-            case "fog":
+            case "Fog":
                     this.state = {
                         statusIcon: faFog,
                         canRotate: false
