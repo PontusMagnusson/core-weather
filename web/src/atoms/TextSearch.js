@@ -10,9 +10,22 @@ export default class TextSearch extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    handleChange(e){
+    handleSubmit(e) {
+        // if user presses the enter key
+        if(e.which === 13)
+        {
+            e.preventDefault();
+    
+            console.log(e.target.value)
+
+            this.props.submitSearch(e.target.value)
+        }
+    }
+
+    handleChange(e) {
         this.setState({
             value: e.target.value
         })
@@ -20,7 +33,7 @@ export default class TextSearch extends Component {
 
     render(){
         return (
-            <input type="text" placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} />
+                <input type="text" placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} onKeyUp={this.handleSubmit}/>
         )
     }
 }

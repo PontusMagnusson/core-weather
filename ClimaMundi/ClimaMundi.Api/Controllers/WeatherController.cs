@@ -28,9 +28,9 @@ namespace ClimaMundi.Api.Controllers
         }
 
         [HttpGet("{location}")]
-        public string GetByLocation(string location)
+        public async Task<IActionResult> GetByLocation(string location)
         {
-            throw new NotImplementedException();
+            return Ok(await _weatherService.GetWeatherByLocation(location));
         }
     }
 }

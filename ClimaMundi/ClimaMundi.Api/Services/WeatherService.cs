@@ -26,7 +26,7 @@ namespace ClimaMundi.Api.Services
             _apiKey = apiKey;
         }
 
-        public async Task<Response> GetWeatherByCoordinates(double latitude, double longitude)
+        public async Task<WeatherResponse> GetWeatherByCoordinates(double latitude, double longitude)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -45,7 +45,7 @@ namespace ClimaMundi.Api.Services
                 }
 
                 // Map the values to our own viewmodel, so we can format the values here instead of the browser
-                Response response = new Response()
+                WeatherResponse response = new WeatherResponse()
                 {
                     Currently = new CurrentlyViewModel()
                     {
@@ -63,9 +63,15 @@ namespace ClimaMundi.Api.Services
             }
         }
 
-        public async Task<Response> GetWeatherByLocation(string locaion)
+        public async Task<WeatherResponse> GetWeatherByLocation(string location)
         {
-            throw new NotImplementedException();
+            string apiKey = Environment.GetEnvironmentVariable("MapBoxApiKey");
+            GeocodingService service = new GeocodingService(apiKey);
+
+            string result = await service.ForwardGeocode(location);
+
+            // Temporarily return empty response
+            return await Task.FromResult(new WeatherResponse(){});
         }
 
 

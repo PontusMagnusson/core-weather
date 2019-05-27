@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClimaMundi.Core.Models
 {
-    public class Response
+    public class WeatherResponse
     {
         public string Error { get; set; }
 
