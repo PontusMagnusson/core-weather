@@ -5,8 +5,7 @@ import {faSun, faCloud, faCloudSun, faWind, faFog, faMeteor, faCloudShowers} fro
 export default class CurrentWeatherIcon extends Component {
     constructor(props){
         super(props)
-
-        let statusIcon;
+        
         switch(this.props.status){
             case "partly-cloudy-day":
                     this.state = {
