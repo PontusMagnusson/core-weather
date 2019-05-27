@@ -9,7 +9,8 @@ export default class NotFound extends Component {
         return (
             <header className="App-header">
                 <FontAwesomeIcon className="levitate" icon={faGhost} size="6x"/>
-                <h1>Oh no, this page does not exist</h1>
+                <h1>You've found the 404 ghost</h1>
+                <a href="/">I'm scared, take me home</a>
             </header>
         )
     }
