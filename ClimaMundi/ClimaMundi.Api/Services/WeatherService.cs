@@ -23,6 +23,11 @@ namespace ClimaMundi.Api.Services
 
         public WeatherService(string apiKey)
         {
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                throw new ArgumentNullException(nameof(apiKey), "API key cannot be null");
+            }
+
             _apiKey = apiKey;
         }
 

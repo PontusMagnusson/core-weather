@@ -1,6 +1,7 @@
 FROM node:12.2.0-alpine as builder
 WORKDIR /app
 COPY ./package.json ./
+COPY ./.npmrc ./
 RUN npm install --silent
 COPY ./ ./
 RUN npm run build --nomaps
