@@ -1,4 +1,6 @@
-﻿using Serilog;
+﻿using ClimaMundi.Core.Models;
+using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,52 +21,57 @@ namespace ClimaMundi.Api.Services
             _apiKey = apiKey;
         }
 
-        public async Task<string> ReverseGeocode(double latitude, double longitude)
+        public async Task<GeocodeResponse> ReverseGeocodeAsync(double latitude, double longitude)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = _baseUri;
+                GeocodeResponse geocodeResponse = null;
 
                 try
                 {
                     string requestUri = CreateRequestUri(latitude, longitude);
                     var response = await client.GetAsync(requestUri);
-
+                    string jsonResult = await response.Content.ReadAsStringAsync();
+                    geocodeResponse = JsonConvert.DeserializeObject<GeocodeResponse>(jsonResult, new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Ignore });
                 }
                 catch (HttpRequestException ex)
                 {
                     Log.Error(ex, "HttpRequest failed");
                 }
 
-                return await Task.FromResult("");
+                return await Task.FromResult(geocodeResponse);
             }
         }
 
-        public async Task<string> ForwardGeocode(string location)
+        public async Task<GeocodeResponse> ForwardGeocodeAsync(string location)
         {
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = _baseUri;
+                GeocodeResponse response = null;
 
                 try
                 {
                     string requestUri = CreateRequestUri(location);
-                    var response = await client.GetAsync(requestUri);
+                    var httpResponse = await client.GetAsync(requestUri);
+                    string jsonResult = await httpResponse.Content.ReadAsStringAsync();
 
+                    response = JsonConvert.DeserializeObject<GeocodeResponse>(jsonResult, new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Ignore });
                 }
-                catch (HttpRequestException ex)
+                catch (Exception ex)
                 {
                     Log.Error(ex, "HttpRequest failed");
                 }
 
-                return await Task.FromResult("");
+                return await Task.FromResult(response);
             }
         }
 
         private string CreateRequestUri(double latitude, double longitude)
         {
             // Since the uri is pretty much the same we can just reuse the other builder
-            return CreateRequestUri(Invariant($"{latitude},{longitude}"));
+            return CreateRequestUri(Invariant($"{longitude},{latitude}"));
         }
 
         private string CreateRequestUri(string location)

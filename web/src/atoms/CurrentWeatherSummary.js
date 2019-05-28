@@ -5,7 +5,7 @@ export default class CurrentWeatherSummary extends Component {
         return(
             <div id="current-weather-summary">
                 <p>{this.props.value}</p>
-                <h2>Gothenburg, Sweden</h2>
+                <h2>{this.props.location}</h2>
             </div>
         )
     }

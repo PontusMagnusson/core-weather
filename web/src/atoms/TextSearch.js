@@ -18,9 +18,6 @@ export default class TextSearch extends Component {
         if(e.which === 13)
         {
             e.preventDefault();
-    
-            console.log(e.target.value)
-
             this.props.submitSearch(e.target.value)
         }
     }

@@ -7,28 +7,25 @@ import Humidity from '../atoms/Humidity'
 import CurrentWeatherSummary from '../atoms/CurrentWeatherSummary';
 
 export default class CurrentWeather extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = this.props.data
-    }
-
     render(){
+
+        let { icon, temperature, temperatureUnit, dailyHigh, dailyLow, humidity, summary, location } = this.props.data;
+
         return (
         <div>
             <div className="current-weather-flex-grid">
                 <div className="current-weather-flex-column-left">
-                    <CurrentWeatherIcon status={this.state.icon}/>
-                    <CurrentTemperature temperature={this.state.temperature} unit={this.state.temperatureUnit}/>
+                    <CurrentWeatherIcon icon={icon}/>
+                    <CurrentTemperature temperature={temperature} unit={temperatureUnit}/>
                 </div>
                 <div className="current-weather-flex-column-right">
                     {/* In here we can have humidity, wind speed, daily high & low etc. */}
-                    <TemperatureHigh value={this.state.dailyHigh} unit={this.state.temperatureUnit}/>
-                    <TemperatureLow value={this.state.dailyLow} unit={this.state.temperatureUnit}/>
-                    <Humidity value={this.state.humidity} unit={this.state.temperatureUnit}/>
+                    <TemperatureHigh value={dailyHigh} unit={temperatureUnit}/>
+                    <TemperatureLow value={dailyLow} unit={temperatureUnit}/>
+                    <Humidity value={humidity} unit={temperatureUnit}/>
                 </div>
             </div>
-            <CurrentWeatherSummary value={this.state.summary}/>
+            <CurrentWeatherSummary value={summary} location={location}/>
         </div>
         )
     }

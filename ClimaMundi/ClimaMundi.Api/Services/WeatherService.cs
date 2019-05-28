@@ -44,14 +44,20 @@ namespace ClimaMundi.Api.Services
                     Log.Error(ex, "Http request failed");
                 }
 
+                string apiKey = Environment.GetEnvironmentVariable("MapBoxApiKey");
+                GeocodingService geocodingService = new GeocodingService(apiKey);
+
+                GeocodeResponse geocodeResponse = await geocodingService.ReverseGeocodeAsync(latitude, longitude);
+
                 // Map the values to our own viewmodel, so we can format the values here instead of the browser
                 WeatherResponse response = new WeatherResponse()
                 {
                     Currently = new CurrentlyViewModel()
                     {
+                        Location = geocodeResponse.Features.First().PlaceName,
                         Icon = forecast.Currently.Icon.ToString(),
                         Temperature = Math.Round(forecast.Currently.Temperature.Value, 1),
-                        Humidity = (forecast.Currently.Humidity * 100),
+                        Humidity = Math.Round(forecast.Currently.Humidity.Value * 100),
                         DailyHigh = Math.Round(forecast.Daily.Data.First().TemperatureHigh.Value, 1),
                         DailyLow = Math.Round(forecast.Daily.Data.First().TemperatureLow.Value, 1),
                         Summary = forecast.Hourly.Data.First().Summary,
@@ -68,10 +74,14 @@ namespace ClimaMundi.Api.Services
             string apiKey = Environment.GetEnvironmentVariable("MapBoxApiKey");
             GeocodingService service = new GeocodingService(apiKey);
 
-            string result = await service.ForwardGeocode(location);
+            GeocodeResponse result = await service.ForwardGeocodeAsync(location);
+
+            WeatherResponse weatherResponse = await GetWeatherByCoordinates(result.Features.First().Center[1], result.Features.First().Center[0]);
+
+            weatherResponse.Currently.Location = result.Features.First().PlaceName;
 
             // Temporarily return empty response
-            return await Task.FromResult(new WeatherResponse(){});
+            return await Task.FromResult(weatherResponse);
         }
 
 

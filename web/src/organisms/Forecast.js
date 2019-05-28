@@ -8,7 +8,7 @@ export default class Forecast extends Component {
     render(){
         return (
             <div>
-                <table>
+                {/* <table>
                     <thead>
                         <tr>
                             <th>Table with stuff</th>
@@ -21,7 +21,7 @@ export default class Forecast extends Component {
                             <td>Cell here too</td>
                         </tr>
                     </tbody>
-                </table>
+                </table> */}
             </div>
         )
     }

@@ -4,6 +4,7 @@ import CurrentWeather from '../organisms/CurrentWeather'
 import LoadingSpinner, {} from '../atoms/LoadingSpinner'
 import AppHeader from '../organisms/AppHeader'
 import TextSearch from '../atoms/TextSearch'
+import * as WeatherService from '../services/WeatherService.js'
 
 export default class Weather extends Component {
     constructor(props) {
@@ -12,23 +13,57 @@ export default class Weather extends Component {
         this.state = {
             loading: true,
             allowedGeolocating: true,
+            searchQuery: "",
             data: {}
         }
 
         this.onGeolocationFailure = this.onGeolocationFailure.bind(this)
         this.onGeolocationSuccess = this.onGeolocationSuccess.bind(this)
-        this.fetchWeatherByCoordinates = this.fetchWeatherByCoordinates.bind(this)
-        this.fetchWeatherByLocation = this.fetchWeatherByLocation.bind(this)
+        this.setSearchQuery = this.setSearchQuery.bind(this)
     }
 
-    componentWillMount(){
-        if('geolocation' in navigator) {
-            navigator.geolocation.getCurrentPosition(this.onGeolocationSuccess, this.onGeolocationFailure)
+    componentDidMount() {
+        // If search query is empty, try to use location from browser geolocation
+        if(this.state.searchQuery === "") {
+            if('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition(this.onGeolocationSuccess, this.onGeolocationFailure)
+            }
+        // Otherwise we send the query to the api and see what we get back.
+        } else {
+            console.log("Is this called")
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.searchQuery !== prevState.searchQuery && this.state.searchQuery !== "") {
+            WeatherService.fetchWeatherByLocation(this.state.searchQuery, 
+                (err, data) => {
+                    if(err){
+                        console.log(err)
+                    }
+                    console.log(data)
+                    this.setState({
+                        loading: false,
+                        data: data
+                    })
+                })
         }
     }
 
     onGeolocationSuccess(position) {
-        this.fetchWeatherByCoordinates(position.coords.latitude, position.coords.longitude)
+        WeatherService.fetchWeatherByCoordinates(position.coords.latitude, 
+            position.coords.longitude,
+            (err, data) => {
+                if(err) {
+                    console.log(err)
+                }
+
+                console.log(data)
+                this.setState({
+                    loading: false,
+                    data: data
+                })
+            })
     }
 
     onGeolocationFailure(error) {
@@ -40,43 +75,19 @@ export default class Weather extends Component {
             console.log("Geolocation timed out")
         }
 
+        // At this point we should probably display some default weather data or something.
         this.setState({
             loading: false,
             allowedGeolocating: false
         })
     }
 
-    fetchWeatherByCoordinates(latitude, longitude) {
-        fetch(`http://127.0.0.1:5000/api/weather/${latitude},${longitude}`) // Not going to host this anywhere so this is good enough for now
-        .then((resp) => {
-            return resp.json()
-        })
-        .then((data) => {
-            console.log(data)
-            this.setState({
-                data: data,
-                loading: false
-            })
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-    }
+    setSearchQuery(query) {
 
-    fetchWeatherByLocation(location) {
-        fetch(`http://127.0.0.1:5000/api/weather/${location}`)
-        .then((resp) => {
-            return resp.json()
-        })
-        .then((data) => {
-            console.log(data)
-            this.setState({
-                data: data,
-                loading: false
-            })
-        })
-        .catch((err) => {
-            console.log(err)
+        console.log(query)
+
+        this.setState({
+            searchQuery: query
         })
     }
 
@@ -99,8 +110,8 @@ export default class Weather extends Component {
                 ) : (
                     <div>
                         <AppHeader>
-                            <TextSearch submitSearch={this.fetchWeatherByLocation} placeholder="Write here!"/>
-                            {currentWeather} 
+                            <TextSearch submitSearch={this.setSearchQuery} placeholder="Write here!"/>
+                            {currentWeather}
                         </AppHeader>
                         <Forecast/>
                     </div>
