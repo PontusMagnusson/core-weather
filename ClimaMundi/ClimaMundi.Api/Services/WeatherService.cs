@@ -31,7 +31,7 @@ namespace ClimaMundi.Api.Services
             _apiKey = apiKey;
         }
 
-        public async Task<WeatherResponse> GetWeatherByCoordinates(double latitude, double longitude)
+        public async Task<WeatherResponse> GetWeatherByCoordinates(double latitude, double longitude, string placeName = "")
         {
             using (HttpClient client = new HttpClient())
             {
@@ -40,6 +40,8 @@ namespace ClimaMundi.Api.Services
                 Forecast forecast = null;
                 try
                 {
+                    Log.Information("Sending request to {RequestUri} at {BaseUri}", requestUri, _baseUri);
+
                     var result = await client.GetAsync(requestUri);
                     string jsonResult =  await result.Content.ReadAsStringAsync();
                     forecast = JsonConvert.DeserializeObject<Forecast>(jsonResult);
@@ -49,17 +51,22 @@ namespace ClimaMundi.Api.Services
                     Log.Error(ex, "Http request failed");
                 }
 
-                string apiKey = Environment.GetEnvironmentVariable("MapBoxApiKey");
-                GeocodingService geocodingService = new GeocodingService(apiKey);
+                if (string.IsNullOrWhiteSpace(placeName))
+                {
+                    string apiKey = Environment.GetEnvironmentVariable("MapBoxApiKey");
+                    GeocodingService geocodingService = new GeocodingService(apiKey);
 
-                GeocodeResponse geocodeResponse = await geocodingService.ReverseGeocodeAsync(latitude, longitude);
+                    GeocodeResponse geocodeResponse = await geocodingService.ReverseGeocodeAsync(latitude, longitude);
+
+                    placeName = geocodeResponse.Features.First().PlaceName;
+                }
 
                 // Map the values to our own viewmodel, so we can format the values here instead of the browser
                 WeatherResponse response = new WeatherResponse()
                 {
                     Currently = new CurrentlyViewModel()
                     {
-                        Location = geocodeResponse.Features.First().PlaceName,
+                        Location = placeName,
                         Icon = forecast.Currently.Icon.ToString(),
                         Temperature = Math.Round(forecast.Currently.Temperature.Value, 1),
                         Humidity = Math.Round(forecast.Currently.Humidity.Value * 100),
@@ -81,9 +88,21 @@ namespace ClimaMundi.Api.Services
 
             GeocodeResponse result = await service.ForwardGeocodeAsync(location);
 
-            WeatherResponse weatherResponse = await GetWeatherByCoordinates(result.Features.First().Center[1], result.Features.First().Center[0]);
+            WeatherResponse weatherResponse;
 
-            weatherResponse.Currently.Location = result.Features.First().PlaceName;
+            if(result.Features.Count() == 0)
+            {
+                weatherResponse = new WeatherResponse()
+                {
+                    Error = "No locations found matching search query",
+                    Status = 400
+                };
+            }
+            else
+            {
+               weatherResponse = await GetWeatherByCoordinates(result.Features.First().Center[1], result.Features.First().Center[0], result.Features.First().PlaceName);
+            }
+
 
             // Temporarily return empty response
             return await Task.FromResult(weatherResponse);

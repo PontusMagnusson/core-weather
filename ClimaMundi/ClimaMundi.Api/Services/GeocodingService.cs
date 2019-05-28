@@ -26,6 +26,12 @@ namespace ClimaMundi.Api.Services
             _apiKey = apiKey;
         }
 
+        /// <summary>
+        /// Gets readable location data for a set of coordinates. Selects the most detailed location available.
+        /// </summary>
+        /// <param name="latitude"></param>
+        /// <param name="longitude"></param>
+        /// <returns></returns>
         public async Task<GeocodeResponse> ReverseGeocodeAsync(double latitude, double longitude)
         {
             using (HttpClient client = new HttpClient())
@@ -36,6 +42,9 @@ namespace ClimaMundi.Api.Services
                 try
                 {
                     string requestUri = CreateRequestUri(latitude, longitude);
+
+                    Log.Information("Sending request to {RequestUri} at {BaseUri}", requestUri, _baseUri);
+
                     var response = await client.GetAsync(requestUri);
                     string jsonResult = await response.Content.ReadAsStringAsync();
                     geocodeResponse = JsonConvert.DeserializeObject<GeocodeResponse>(jsonResult, new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Ignore });
@@ -49,6 +58,11 @@ namespace ClimaMundi.Api.Services
             }
         }
 
+        /// <summary>
+        /// Gets the most relevant location based on a search string.
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
         public async Task<GeocodeResponse> ForwardGeocodeAsync(string location)
         {
             using (HttpClient client = new HttpClient())
@@ -59,6 +73,9 @@ namespace ClimaMundi.Api.Services
                 try
                 {
                     string requestUri = CreateRequestUri(location);
+
+                    Log.Information("Sending request to {RequestUri} at {BaseUri}", requestUri, _baseUri);
+
                     var httpResponse = await client.GetAsync(requestUri);
                     string jsonResult = await httpResponse.Content.ReadAsStringAsync();
 
