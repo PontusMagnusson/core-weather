@@ -8,6 +8,9 @@ using ClimaMundi.Api.Services;
 
 namespace ClimaMundi.Api.Controllers
 {
+    /// <summary>
+    /// Get the weather for any location
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class WeatherController : ControllerBase
