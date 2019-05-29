@@ -15,7 +15,7 @@ export default class NoResult extends Component {
             displayText = "Please enter your search above"
         }
         else if (query !== "" ) {
-            displayText = `No result found for ${query}`
+            displayText = `No result found for "${query}"`
         }
 
         return (
