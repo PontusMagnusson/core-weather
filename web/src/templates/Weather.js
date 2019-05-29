@@ -5,6 +5,7 @@ import LoadingSpinner, {} from '../atoms/LoadingSpinner'
 import AppHeader from '../organisms/AppHeader'
 import TextSearch from '../atoms/TextSearch'
 import * as WeatherService from '../services/WeatherService.js'
+import NoResult from '../organisms/NoResult';
 
 export default class Weather extends Component {
     constructor(props) {
@@ -87,23 +88,26 @@ export default class Weather extends Component {
         console.log(query)
 
         this.setState({
-            searchQuery: query
+            searchQuery: query,
+            loading: true
         })
     }
 
     render(){
-        let currentWeather;
+        let result;
 
-        if(this.state.data.currently) {
-            currentWeather = <CurrentWeather data={this.state.data.currently}/>
+        let {data, loading, allowedGeolocating, searchQuery} = this.state
+
+        if(data.currently) {
+            result = <CurrentWeather data={data.currently}/>
         }
         else {
-            currentWeather = ""
+            result = <NoResult query={searchQuery} allowedGeolocating={allowedGeolocating}/>
         }
 
         return (
             <div>
-                {this.state.loading ? (
+                {loading ? (
                     <AppHeader>
                         <LoadingSpinner/>
                     </AppHeader>
@@ -111,7 +115,7 @@ export default class Weather extends Component {
                     <div>
                         <AppHeader>
                             <TextSearch submitSearch={this.setSearchQuery} placeholder="Search"/>
-                            {currentWeather}
+                            {result}
                         </AppHeader>
                         <Forecast/>
                     </div>

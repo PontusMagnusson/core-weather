@@ -86,6 +86,7 @@ input {
   padding: 8px;
   background-color: transparent;
   color: inherit;
+  margin-bottom: 15px;
 }
 
 input:focus {
