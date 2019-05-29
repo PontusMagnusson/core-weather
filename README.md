@@ -13,7 +13,10 @@ This app was built to showcase my ability to write clean applications, using tec
 ## Technologies used (so far)
 
 - .NET Core 2.2
+    - Serilog
 - Docker
+- Nginx
+- Azure DevOps Pipelines
 
 ## How to run
 
@@ -41,6 +44,14 @@ You will need to run this every time you make changes to the .NET components of 
 This will force Docker to rebuild the container so that all changes register.
 
 Optionally you can add the `-d` flag to the command, which will run the project detached (no output in terminal). To stop it when running in detached mode, run:
-```
+```bash
 docker-compose down
+```
+
+## Useful commands
+
+In some cases the containers won't build properly, and some errors might get cached. In this case it might be good to remove unused images by running:
+```bash
+docker image prune
+docker-compose up --force-recreate --build
 ```

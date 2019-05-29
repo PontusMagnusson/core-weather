@@ -1,8 +1,9 @@
 FROM node:12.2.0-alpine
 WORKDIR /app
 COPY ./package.json ./
-RUN ls
+COPY ./.npmrc ./
 RUN npm install --silent
+RUN rm ./.npmrc
 COPY ./ ./
 
 ENTRYPOINT npm start
