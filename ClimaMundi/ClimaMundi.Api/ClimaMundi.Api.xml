@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ClimaMundi.Api</name>
+    </assembly>
+    <members>
+        <member name="T:ClimaMundi.Api.Controllers.WeatherController">
+            <summary>
+            Get the weather for any location
+            </summary>
+        </member>
+        <member name="M:ClimaMundi.Api.Controllers.WeatherController.GetByCoordinates(System.Double,System.Double)">
+            <summary>
+            Get the weather for a location specified by a coordinate pair
+            </summary>
+            <param name="latitude">The positions latitude</param>
+            <param name="longitude">The positions longitude</param>
+            <returns></returns>
+        </member>
+        <member name="M:ClimaMundi.Api.Controllers.WeatherController.GetByLocation(System.String)">
+            <summary>
+            Get the weather for a location by a text search, picks the most relevant location based on the search.
+            </summary>
+            <param name="location">The location name</param>
+            <returns></returns>
+        </member>
+        <member name="T:ClimaMundi.Api.Services.WeatherService">
+            <summary>
+            Service targeting the DarkSky API. Uses models from the DarkSky Core wrapper, but not the service provided there.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -59,12 +59,20 @@ a:hover {
   align-items: center;
 }
 
+.current-weather-flex-column-left > svg {
+  margin-right: 20px;
+}
+
 .flex-column-item > svg {
   margin-right: 10px;
 }
 
 .slow-spin {
   animation: Slow-spin infinite 10s ease-in-out;
+}
+
+.loading-spinner {
+  animation: Loading-spin infinite 3s infinite;
 }
 
 .levitate {
@@ -86,6 +94,15 @@ input {
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+@keyframes Loading-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 

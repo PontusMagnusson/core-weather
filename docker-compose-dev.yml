@@ -8,6 +8,8 @@ services:
       - 5000:5000
     environment:
       - ASPNETCORE_URLS=http://+:5000
+    env_file:
+      - './ClimaMundi/.env'
 
   #Build react web app
   climamundi-web:

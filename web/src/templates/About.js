@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
+import AppHeader from '../organisms/AppHeader';
 
 export default class About extends Component {
     render() {
         return (
-            <header class="App-header">
+            <AppHeader>
                 <h2>Something about this site</h2>
-            </header>
+            </AppHeader>
         )
     }
 }

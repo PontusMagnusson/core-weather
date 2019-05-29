@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -47,6 +48,7 @@ namespace ClimaMundi.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "ClimaMundi", Version = "V1" });
+                c.IncludeXmlComments($"./ClimaMundi.Api.xml");
             });
         }
 
