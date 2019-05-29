@@ -81,8 +81,16 @@ a:hover {
 }
 
 input {
-  border: 1px solid #ccc;
+  border: none;
+  border-bottom: 1px solid #ccc;
   padding: 8px;
+  background-color: transparent;
+  color: inherit;
+  margin-bottom: 15px;
+}
+
+input:focus {
+  outline: none;
 }
 
 @keyframes Slow-spin {
