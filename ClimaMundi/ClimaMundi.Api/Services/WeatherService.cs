@@ -9,6 +9,7 @@ using DarkSky.Models;
 using Newtonsoft.Json;
 using ClimaMundi.Core.Models;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.Globalization;
 
 namespace ClimaMundi.Api.Services
 {
@@ -76,6 +77,17 @@ namespace ClimaMundi.Api.Services
                         TemperatureUnit = 'C'
                     }
                 };
+
+                forecast.Daily.Data.ForEach((daily) =>
+                {
+                    response.Daily.Add(new DailyViewModel
+                    {
+                        Date = daily.DateTime.DateTime,
+                        FormattedDateString = daily.DateTime.DateTime.ToString("YYYY-MM-dd", CultureInfo.InvariantCulture),
+                        DailyHigh = daily.TemperatureHigh
+
+                    });
+                });
 
                 return response;
             }

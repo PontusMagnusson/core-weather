@@ -11,5 +11,7 @@ namespace ClimaMundi.Core.Models
         public int Status { get; set; }
 
         public CurrentlyViewModel Currently { get; set; }
+
+        public List<DailyViewModel> Daily { get; set; }
     }
 }
