@@ -98,7 +98,7 @@ namespace ClimaMundi.Api.Services
 
         private string CreateRequestUri(string location)
         {
-            StringBuilder builder = new StringBuilder(Invariant($"/geocoding/v5/mapbox.places/{location}.json?access_token={_apiKey}"));
+            StringBuilder builder = new StringBuilder(Invariant($"/geocoding/v5/mapbox.places/{location}.json?access_token={_apiKey}&types=place"));
 
             return builder.ToString();
         }
