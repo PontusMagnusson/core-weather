@@ -110,7 +110,7 @@ export default class Weather extends Component {
                 ) : (
                     <div>
                         <AppHeader>
-                            <TextSearch submitSearch={this.setSearchQuery} placeholder="Write here!"/>
+                            <TextSearch submitSearch={this.setSearchQuery} placeholder="Search"/>
                             {currentWeather}
                         </AppHeader>
                         <Forecast/>
