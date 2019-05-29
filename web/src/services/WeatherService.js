@@ -20,6 +20,7 @@ export function fetchWeatherByLocation(location, callback) {
     console.log(`Fetching weather for location ${location}`)
     
     location = location.replace(',', ' ') // replace commas with spaces to not collide with the other endpoint
+    location = location.replace('/', ' ')
 
     fetch(`http://127.0.0.1:5000/api/weather/${encodeURIComponent(location)}`)
     .then((resp) => {

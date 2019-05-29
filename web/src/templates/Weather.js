@@ -94,7 +94,7 @@ export default class Weather extends Component {
     render(){
         let currentWeather;
 
-        if(this.state.data) {
+        if(this.state.data.currently) {
             currentWeather = <CurrentWeather data={this.state.data.currently}/>
         }
         else {
