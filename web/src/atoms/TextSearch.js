@@ -30,7 +30,7 @@ export default class TextSearch extends Component {
 
     render(){
         return (
-                <input type="text" placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} onKeyUp={this.handleSubmit}/>
+                <input type="text" spellCheck={false} placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange} onKeyUp={this.handleSubmit}/>
         )
     }
 }
