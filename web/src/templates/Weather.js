@@ -94,15 +94,24 @@ export default class Weather extends Component {
     }
 
     render(){
-        let result;
+        let currentWeather
+        let forecast
+
 
         let {data, loading, allowedGeolocating, searchQuery} = this.state
 
         if(data.currently) {
-            result = <CurrentWeather data={data.currently}/>
+            currentWeather = <CurrentWeather data={data.currently}/>
         }
         else {
-            result = <NoResult query={searchQuery} allowedGeolocating={allowedGeolocating}/>
+            currentWeather = <NoResult query={searchQuery} allowedGeolocating={allowedGeolocating}/>
+        }
+
+        if(data.daily) {
+            forecast = <Forecast data={data.daily} />
+        }
+        else {
+            forecast = ""
         }
 
         return (
@@ -115,9 +124,9 @@ export default class Weather extends Component {
                     <div>
                         <AppHeader>
                             <TextSearch submitSearch={this.setSearchQuery} placeholder="Search"/>
-                            {result}
+                            {currentWeather}
                         </AppHeader>
-                        <Forecast/>
+                        {forecast}
                     </div>
                 )}
             </div>
