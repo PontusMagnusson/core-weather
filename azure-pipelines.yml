@@ -23,6 +23,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+# Move api-keys into env file
 - task: replacetokens@3
   inputs:
     rootDirectory: '/ClimaMundi'
@@ -33,7 +34,7 @@ steps:
     keepToken: false
     tokenPrefix: '#{'
     tokenSuffix: '}#'
-
+# Copy api-keys file so that API finds it
 - task: Bash@3
   inputs:
     targetType: 'inline'

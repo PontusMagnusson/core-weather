@@ -74,8 +74,6 @@ namespace ClimaMundi.Api.Services
                 {
                     string requestUri = CreateRequestUri(location);
 
-                    Log.Information("Sending request to {RequestUri} at {BaseUri}", requestUri, _baseUri);
-
                     var httpResponse = await client.GetAsync(requestUri);
                     string jsonResult = await httpResponse.Content.ReadAsStringAsync();
 

@@ -24,6 +24,21 @@
             <param name="location">The location name</param>
             <returns></returns>
         </member>
+        <member name="M:ClimaMundi.Api.Services.GeocodingService.ReverseGeocodeAsync(System.Double,System.Double)">
+            <summary>
+            Gets readable location data for a set of coordinates. Selects the most detailed location available.
+            </summary>
+            <param name="latitude"></param>
+            <param name="longitude"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ClimaMundi.Api.Services.GeocodingService.ForwardGeocodeAsync(System.String)">
+            <summary>
+            Gets the most relevant location based on a search string.
+            </summary>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
         <member name="T:ClimaMundi.Api.Services.WeatherService">
             <summary>
             Service targeting the DarkSky API. Uses models from the DarkSky Core wrapper, but not the service provided there.

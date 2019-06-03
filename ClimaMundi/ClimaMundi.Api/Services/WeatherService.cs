@@ -39,12 +39,11 @@ namespace ClimaMundi.Api.Services
                 client.BaseAddress = _baseUri;
                 string requestUri = CreateRequestUri(latitude, longitude);
                 Forecast forecast = null;
+
                 try
                 {
-                    Log.Information("Sending request to {RequestUri} at {BaseUri}", requestUri, _baseUri);
-
                     var result = await client.GetAsync(requestUri);
-                    string jsonResult =  await result.Content.ReadAsStringAsync();
+                    string jsonResult = await result.Content.ReadAsStringAsync();
                     forecast = JsonConvert.DeserializeObject<Forecast>(jsonResult);
                 }
                 catch (HttpRequestException ex)
@@ -52,6 +51,7 @@ namespace ClimaMundi.Api.Services
                     Log.Error(ex, "Http request failed");
                 }
 
+                // If we don't have the place name, we get it from the mapbox api
                 if (string.IsNullOrWhiteSpace(placeName))
                 {
                     string apiKey = Environment.GetEnvironmentVariable("MapBoxApiKey");
@@ -74,20 +74,26 @@ namespace ClimaMundi.Api.Services
                         DailyHigh = Math.Round(forecast.Daily.Data.First().TemperatureHigh.Value, 1),
                         DailyLow = Math.Round(forecast.Daily.Data.First().TemperatureLow.Value, 1),
                         Summary = forecast.Hourly.Data.First().Summary,
-                        TemperatureUnit = 'C'
+                        TemperatureUnit = 'C' // In the future we might want to allow the user to switch units
                     }
                 };
 
+                List<DailyViewModel> mappedDailyForecasts = new List<DailyViewModel>();
+                // Map the daily forecasts
                 forecast.Daily.Data.ForEach((daily) =>
                 {
-                    response.Daily.Add(new DailyViewModel
+                    mappedDailyForecasts.Add(new DailyViewModel
                     {
                         Date = daily.DateTime.DateTime,
-                        FormattedDateString = daily.DateTime.DateTime.ToString("YYYY-MM-dd", CultureInfo.InvariantCulture),
-                        DailyHigh = daily.TemperatureHigh
-
+                        FormattedDateString = daily.DateTime.DateTime.ToString("ddd d MMMM", CultureInfo.InvariantCulture),
+                        DailyHigh = Math.Round(daily.TemperatureHigh.Value, 1),
+                        DailyLow = Math.Round(daily.TemperatureLow.Value, 1),
+                        Humidity = Math.Round(daily.Humidity.Value * 100),
+                        Summary = daily.Summary
                     });
                 });
+
+                response.Daily = mappedDailyForecasts;
 
                 return response;
             }
@@ -102,7 +108,7 @@ namespace ClimaMundi.Api.Services
 
             WeatherResponse weatherResponse;
 
-            if(result.Features.Count() == 0)
+            if (result.Features.Count() == 0)
             {
                 weatherResponse = new WeatherResponse()
                 {
@@ -112,11 +118,12 @@ namespace ClimaMundi.Api.Services
             }
             else
             {
-               weatherResponse = await GetWeatherByCoordinates(result.Features.First().Center[1], result.Features.First().Center[0], result.Features.First().PlaceName);
+                Feature mostRelevantFeature = result.Features.First();
+
+                weatherResponse = await GetWeatherByCoordinates(mostRelevantFeature.Center[1], mostRelevantFeature.Center[0], mostRelevantFeature.PlaceName);
+                weatherResponse.Status = 200;
             }
 
-
-            // Temporarily return empty response
             return await Task.FromResult(weatherResponse);
         }
 
