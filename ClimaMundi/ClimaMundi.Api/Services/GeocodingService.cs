@@ -74,8 +74,6 @@ namespace ClimaMundi.Api.Services
                 {
                     string requestUri = CreateRequestUri(location);
 
-                    Log.Information("Sending request to {RequestUri} at {BaseUri}", requestUri, _baseUri);
-
                     var httpResponse = await client.GetAsync(requestUri);
                     string jsonResult = await httpResponse.Content.ReadAsStringAsync();
 
@@ -98,7 +96,7 @@ namespace ClimaMundi.Api.Services
 
         private string CreateRequestUri(string location)
         {
-            StringBuilder builder = new StringBuilder(Invariant($"/geocoding/v5/mapbox.places/{location}.json?access_token={_apiKey}"));
+            StringBuilder builder = new StringBuilder(Invariant($"/geocoding/v5/mapbox.places/{location}.json?access_token={_apiKey}&types=place"));
 
             return builder.ToString();
         }

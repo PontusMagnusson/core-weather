@@ -18,19 +18,36 @@ This app was built to showcase my ability to write clean applications, using tec
 - Nginx
 - Azure DevOps Pipelines
 
+- Apis
+    - DarkSky
+    - Mapbox
+
 ## How to run
 
+Prerequisites:
+- Docker
+- Fontawesome Pro License
+
 ### With Docker
+
+Since I haven't hosted images anywhere, you'll need to build them locally.
+
+In the `/ClimaMundi` folder, place an `.env` file with your API keys for DarkSky and Mapbox
+```
+DarkSkyApiKey=YourKeyHere 
+MapBoxApiKey=YourKeyHere
+```
+
+In the `/web` folder, place an `.npmrc` file with the following content
+```
+@fortawesome:registry=https://npm.fontawesome.com/
+//npm.fontawesome.com/:_authToken=YourFontAwesomeProTokenHere
+```
 
 In the root of this repo, run the following
 ```bash
 docker-compose up
 ```
-
-### Without Docker
-
-- *Whole bunch of steps here eventually*
-
 
 ## Contributing
 
@@ -43,7 +60,7 @@ You will need to run this every time you make changes to the .NET components of 
 
 This will force Docker to rebuild the container so that all changes register.
 
-Optionally you can add the `-d` flag to the command, which will run the project detached (no output in terminal). To stop it when running in detached mode, run:
+Optionally you can add the `-d` flag, which will run the project detached (no output in terminal). To stop it when running in detached mode, run:
 ```bash
 docker-compose down
 ```

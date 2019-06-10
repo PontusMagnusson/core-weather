@@ -8,6 +8,23 @@ a:hover {
   color: #eee;
 }
 
+.content {
+  text-align: center;
+  justify-content: center;
+  align-items:center;
+  display: flex;
+}
+
+table {
+  border-spacing: 0;
+}
+
+th, td {
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+  padding: 1rem;
+}
+
 .App {
   text-align: center;
 }
